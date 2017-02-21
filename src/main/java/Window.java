@@ -3,29 +3,38 @@ import org.lwjgl.opengl.*;
 
 public class Window {
 
-    private static final int WIDTH = 1280;
-    private static final int HEIGHT = 720;
-    private static final int FPS_CAP = 120;
+    private int width;
+    private int HEIGHT;
 
-    public static void createDisplay() {
+    public void createDisplay(int width, int height) {
+        this.width = width;
+        this.HEIGHT = height;
+
         ContextAttribs attribs = new ContextAttribs(3, 2).withForwardCompatible(true).withProfileCore(true);
         try {
-            Display.setDisplayMode(new DisplayMode(WIDTH, HEIGHT));
+            Display.setDisplayMode(new DisplayMode(this.width, HEIGHT));
             Display.create(new PixelFormat(), attribs);
         } catch (LWJGLException e) {
             e.printStackTrace();
         }
 
-        GL11.glViewport(0, 0, WIDTH, HEIGHT);
+        GL11.glViewport(0, 0, this.width, HEIGHT);
     }
 
-    public static void updateDisplay() {
-        Display.sync(FPS_CAP);
+    public void updateDisplay(boolean VSync) {
+        Display.setVSyncEnabled(VSync);
         Display.update();
     }
 
-    public static void closeDisplay() {
+    public void closeDisplay() {
         Display.destroy();
+    }
 
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return HEIGHT;
     }
 }

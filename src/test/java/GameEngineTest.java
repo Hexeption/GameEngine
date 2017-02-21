@@ -1,17 +1,17 @@
 import org.lwjgl.opengl.Display;
 
-/**
- * Created by Keir on 21/02/2017.
- */
 public class GameEngineTest {
 
-    public static void main(String[] args) {
-        Window.createDisplay();
+    public static Window mainWindow;
 
-        while (!Display.isCloseRequested()){
-            Window.updateDisplay();
+    public static void main(String[] args) {
+        mainWindow = new Window();
+        mainWindow.createDisplay(1280, 720);
+
+        while (!Display.isCloseRequested()) {
+            mainWindow.updateDisplay(true);
         }
 
-        Window.closeDisplay();
+        mainWindow.closeDisplay();
     }
 }
